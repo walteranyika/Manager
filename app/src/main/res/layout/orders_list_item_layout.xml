@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="8dp"
+              android:weightSum="5">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:orientation="vertical">
+
+        <TextView
+            android:textSize="16sp"
+            android:textColor="@color/black_button"
+            android:id="@+id/orderItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Royco"/>
+
+        <TextView
+            android:paddingLeft="2dp"
+            android:textColor="@color/bg_screen2"
+            android:id="@+id/orderItemDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250"
+            android:textSize="12sp"/>
+        <TextView
+            android:paddingLeft="2dp"
+            android:textColor="@color/bg_screen1"
+            android:id="@+id/orderItemNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="250"
+            android:textSize="12sp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/orderItemTotal"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:text="300"/>
+</LinearLayout>

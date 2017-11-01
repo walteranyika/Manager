@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:id="@+id/layoutCounter"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:layout_below="@+id/layoutCounter"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/radioGroup">
+        <org.honorato.multistatetogglebutton.MultiStateToggleButton
+            android:id="@+id/select_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            mstb:values="@array/button_states"
+            mstb:mstbPrimaryColor="@color/colorPrimary"
+            mstb:mstbSecondaryColor="@color/divider_grey"/>
+    </LinearLayout>
+
+    <EditText
+        android:layout_marginRight="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:id="@+id/edtClientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edt_rounded_layout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/radioGroup"
+        android:hint="Client or Company Names">
+
+    </EditText>
+
+    <ListView
+        android:id="@+id/listViewQuotesorOrders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/edtClientName"
+        android:layout_above="@+id/linearLayout"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:paddingLeft="12dp"
+        android:weightSum="4"
+        android:layout_height="60dp"
+        android:id="@+id/linearLayout">
+       <LinearLayout
+           android:gravity="center_vertical"
+           android:orientation="vertical"
+           android:layout_weight="2.5"
+           android:layout_width="0dp"
+           android:layout_height="match_parent">
+           <TextView
+               android:textColor="#fff"
+               android:text="No Items Added"
+               android:textSize="16sp"
+               android:layout_width="match_parent"
+               android:id="@+id/tvSalesCounter"
+               android:layout_height="wrap_content"/>
+
+           <TextView
+               android:id="@+id/tvSalesTotals"
+               android:textColor="#fff"
+               android:text="0.0"
+               android:textSize="16sp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
+       <TextView
+           android:onClick="confirm"
+           android:textSize="18dp"
+           android:gravity="center"
+           android:textColor="#fff"
+           android:text="Confirm"
+           android:layout_weight="1.5"
+           android:layout_width="0dp"
+           android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</RelativeLayout>

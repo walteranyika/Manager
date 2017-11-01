@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="io.walter.manager">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+        </activity>
+        <activity android:name=".AddCategoryActivity"/>
+        <activity android:name=".AddItemActivity"/>
+        <activity android:name=".EditProductActivity"/>
+        <activity
+            android:name=".StocksActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".AddServiceActivity">
+        </activity>
+        <activity android:name=".SalesActivity">
+        </activity>
+        <activity
+            android:name=".QuotesOrdersActivity"
+            android:label="Quotes and Orders"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:parentActivityName=".AddQuoteOrOrderActivity"
+            android:name=".ConfirmActivity"
+            android:label="Confirm">
+        </activity>
+
+        <activity
+            android:name=".AddQuoteOrOrderActivity"
+            android:label="Add Quote or Order">
+        </activity>
+
+        <activity
+            android:name=".ReportsActivity"
+            android:label="@string/title_activity_reports"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+            android:name=".IntroActivity"
+            android:theme="@style/IntroTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".SolidActivity"
+            android:label="Solid">
+        </activity>
+
+        <activity
+            android:name=".TutorialsActivity"
+            android:theme="@style/IntroTheme">
+        </activity>
+
+        <activity
+            android:label="Settings"
+            android:name=".SettingsActivity">
+        </activity>
+    </application>
+
+</manifest>

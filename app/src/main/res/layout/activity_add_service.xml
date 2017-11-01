@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Item Type"/>
+    <RadioGroup
+        android:visibility="gone"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <RadioButton
+            android:checked="true"
+            android:layout_marginRight="14dp"
+            android:id="@+id/radioTaxable"
+            android:text="Product"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <RadioButton
+            android:id="@+id/radioService"
+            android:text="Service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Service Name"/>
+
+    <EditText
+        android:id="@+id/editItemName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Service Name"/>
+
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Unit Price"/>
+
+    <EditText
+        android:id="@+id/edtItemPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="numberDecimal"
+        android:hint="Unit Price"/>
+
+
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Brief Description"/>
+
+    <EditText
+        android:id="@+id/edtItemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Description"/>
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Service Code"/>
+
+    <EditText
+        android:id="@+id/edtItemCode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Service Code"/>
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:onClick="chooseColor"
+            android:id="@+id/colorView"
+            android:background="@drawable/rounded_background"
+            android:layout_gravity="center_vertical"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:onClick="chooseColor"
+            android:id="@+id/colorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Choose Color"/>
+    </LinearLayout>
+</LinearLayout>

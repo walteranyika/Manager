@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <Spinner
+        android:layout_marginTop="12dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/spinnerCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ListView
+        android:layout_below="@id/spinnerCategories"
+        android:id="@+id/sales_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:id="@+id/layoutCounter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingRight="12dp"
+        android:weightSum="2">
+
+        <TextView
+            android:id="@+id/tvSalesCounter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="0 Items"
+            android:textColor="#fff"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/tvSalesTotals"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="KES 0.0"
+            android:textColor="#fff"
+            android:textSize="11sp"/>
+    </LinearLayout>
+</RelativeLayout>

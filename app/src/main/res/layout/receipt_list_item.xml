@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:weightSum="5"
+              android:padding="8dp"
+              android:layout_height="wrap_content">
+
+   <LinearLayout
+       android:orientation="vertical"
+       android:layout_weight="3"
+       android:layout_width="0dp"
+       android:layout_height="wrap_content">
+         <LinearLayout
+             android:layout_marginBottom="3dp"
+             android:orientation="horizontal"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+             <TextView
+                 android:id="@+id/purchaseTitle"
+                 android:text="Royco"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <TextView
+                 android:id="@+id/purchaseQuantity"
+                 android:layout_marginLeft="6dp"
+                 android:text="x 1"
+                 android:textColor="#f5581e"
+                 android:textSize="10sp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+         </LinearLayout>
+
+       <TextView
+           android:id="@+id/purchaseUnitPrice"
+           android:text="250"
+           android:textSize="8sp"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+   </LinearLayout>
+
+    <TextView
+        android:id="@+id/purchaseTotalPrice"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.5"
+        android:gravity="right|center_vertical"
+        android:paddingRight="5dp"
+        android:text="250"/>
+    <ImageView
+        android:id="@+id/purchaseDeleteItem"
+        android:gravity="right"
+        android:layout_weight="0.5"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ListView
+        android:id="@+id/listconfirmOrders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:paddingLeft="12dp"
+        android:weightSum="4"
+        android:layout_height="60dp"
+        android:id="@+id/linearLayout">
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_weight="2.5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+            <TextView
+                android:textColor="#fff"
+                android:text="No Items Added"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:id="@+id/tvSalesCounter"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/tvSalesTotals"
+                android:textColor="#fff"
+                android:text="0.0"
+                android:textSize="16sp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <Button
+            android:onClick="confirm"
+            android:textColor="#fff"
+            android:text="Confirm"
+            android:layout_weight="1.5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+</RelativeLayout>

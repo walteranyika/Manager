@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_marginTop="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Category Name"/>
+
+    <EditText
+        android:id="@+id/edtCategoryAdd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:maxLines="1"
+        android:inputType="textPersonName"
+        android:hint="Category Name"/>
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <View
+            android:onClick="chooseColor"
+            android:id="@+id/colorView"
+            android:background="@drawable/rounded_background"
+            android:layout_gravity="center_vertical"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:layout_marginLeft="16dp"
+            android:gravity="center_vertical"
+            android:onClick="chooseColor"
+            android:id="@+id/colorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Choose Color"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_width="match_parent"
+              android:weightSum="5"
+              android:padding="8dp"
+              android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/colorView"
+        android:background="@drawable/rounded_background"
+        android:layout_gravity="center_vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.5"
+        android:layout_height="30dp"/>
+
+    <LinearLayout
+        android:paddingLeft="10dp"
+        android:layout_weight="3.5"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/itemTitleInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#1a237e"
+            android:textSize="20sp"
+            android:layout_marginBottom="2dp"
+            android:text="Soap"/>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:paddingLeft="4dp"
+                android:textSize="8dp"
+                android:id="@+id/itemCodeInventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="10001"/>
+            <TextView
+                android:paddingLeft="4dp"
+                android:textSize="8dp"
+                android:id="@+id/itemCategoryInventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kitchen"/>
+            <TextView
+                android:paddingLeft="4dp"
+                android:textSize="8dp"
+                android:id="@+id/itemQuantityInventory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#4f2b6b"
+                android:text="100"/>
+        </LinearLayout>
+
+        <TextView
+            android:paddingLeft="4dp"
+            android:textSize="8dp"
+            android:id="@+id/itemDescInventory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1kg Unga Ngano"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/itemPriceInventory"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="right"
+        android:layout_weight="0.9"
+        android:textSize="16sp"
+        android:textColor="#545454"
+        android:text="100"/>
+
+    <ImageView
+        android:id="@+id/popup_menu"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="0.1"
+        android:src="@drawable/vertical_dots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
