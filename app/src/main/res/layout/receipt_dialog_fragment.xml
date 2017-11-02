@@ -44,4 +44,16 @@
             android:layout_height="wrap_content"/>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="16dp"
+        android:text="Adjust Unit Price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:inputType="numberDecimal"
+        android:id="@+id/inputUnitPrice"
+        android:hint="Unit Price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

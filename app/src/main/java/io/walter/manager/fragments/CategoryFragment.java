@@ -83,6 +83,7 @@ public class CategoryFragment extends Fragment {
         super.onResume();
         data.clear();
         getAllCategories();
+        toggleEmptyListVisibility();
     }
 
     @Override

@@ -14,6 +14,16 @@
         android:id="@+id/sales_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <TextView
+        android:padding="16dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:text="No items found under this category"
+        android:layout_centerInParent="true"
+        android:id="@+id/textEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
         android:layout_alignParentBottom="true"

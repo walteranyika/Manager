@@ -48,6 +48,8 @@ public class SalesFragment extends Fragment {
     ArrayList<String> spinnerItems;
     ArrayAdapter<String> spinnerAdapter;
     ArrayList<Product> productArrayList;
+    TextView tvEmpty;
+    ListView listView;
 
 
 
@@ -60,7 +62,8 @@ public class SalesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sales_fragment, container, false);
         ((SalesActivity) getActivity()).getSupportActionBar().setTitle("All Products");
-        ListView listView = (ListView) view.findViewById(R.id.sales_list);
+        listView = (ListView) view.findViewById(R.id.sales_list);
+        tvEmpty = (TextView) view.findViewById(R.id.textEmpty);
         setHasOptionsMenu(true);
         myRealm=Realm.getInstance(getContext());
         tvSalesCounter = (TextView) view.findViewById(R.id.tvSalesCounter);
@@ -77,19 +80,22 @@ public class SalesFragment extends Fragment {
         spinnerCategories.setAdapter(spinnerAdapter);
 
         spinnerCategories.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String category = spinnerItems.get(position);
                 if (position==0){
                  ((SalesActivity) getActivity()).getSupportActionBar().setTitle("All Products");
                   productArrayList.clear();
                   productArrayList.addAll(getProducts());
                   adapter.notifyDataSetChanged();
+                  toggleEmptyListVisibility();
                 }else {
-                    String category = spinnerItems.get(position);
                     ((SalesActivity) getActivity()).getSupportActionBar().setTitle(category+" category");
                     productArrayList.clear();
                     productArrayList.addAll(getSpecificProducts(category));
                     adapter.notifyDataSetChanged();
+                    toggleEmptyListVisibility();
                 }
             }
             @Override
@@ -127,7 +133,17 @@ public class SalesFragment extends Fragment {
             }
             }
         });
+        toggleEmptyListVisibility();
         return view;
+    }
+
+    public void toggleEmptyListVisibility() {
+        try {
+            listView.setVisibility(adapter.isEmpty()? View.INVISIBLE:View.VISIBLE);
+            tvEmpty.setVisibility(adapter.isEmpty()?View.VISIBLE:View.INVISIBLE);
+        }catch (NullPointerException e){
+
+        }
     }
 
     public ArrayList<String> getAllCategories() {
@@ -172,6 +188,7 @@ public class SalesFragment extends Fragment {
             public boolean onQueryTextChange(String newText) {
                 Log.d("SEARCH", newText);
                 adapter.filter(newText);
+                toggleEmptyListVisibility();
                 return false;
             }
         });

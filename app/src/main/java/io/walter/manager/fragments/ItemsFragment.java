@@ -76,6 +76,7 @@ public class ItemsFragment extends Fragment {
         super.onResume();
         data.clear();
         getAllProducts();
+        toggleEmptyListVisibility();
     }
 
     @Override

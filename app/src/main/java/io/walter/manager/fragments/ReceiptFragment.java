@@ -222,7 +222,7 @@ public class ReceiptFragment extends Fragment {
     public void updateSummary() {
         tvTotal.setText("KES " + getProductsTotalCost());
         int total=countItems();
-        String text=total>1?"Items":"Item";
+        String text=total>1?" Items":" Item";
         tvCounter.setText(countItems() + text);
         setupBadge();
         toggleEmptyListVisibility();
