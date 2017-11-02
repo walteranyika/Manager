@@ -3,14 +3,22 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-
-
     <ListView
         android:layout_alignParentTop="true"
         android:id="@+id/receiptList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/include"/>
+
+    <TextView
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18dp"
+        android:textAlignment="center"
+        android:text="You have not added any items to the cart yet"
+        android:layout_centerInParent="true"
+        android:id="@+id/textEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <include layout="@layout/sales_orders_footer"
              android:id="@+id/include"/>

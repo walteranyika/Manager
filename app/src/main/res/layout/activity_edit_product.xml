@@ -92,17 +92,34 @@
         android:hint="Description"/>
 
     <TextView
+        android:visibility="gone"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Product Code"/>
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/edtItemCode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
         android:maxLines="1"
         android:inputType="textPersonName"
+        android:hint="Code"/>
+    <TextView
+
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Re Order Level"/>
+
+    <EditText
+        android:id="@+id/edtItemReOrderLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:text="10"
+        android:inputType="numberDecimal"
         android:hint="Code"/>
 </LinearLayout>

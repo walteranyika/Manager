@@ -1,13 +1,15 @@
 package io.walter.manager;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
     //https://github.com/dkmeteor/CircleAnimation
     //https://stackoverflow.com/questions/43194243/notification-badge-on-action-item-android
+    //https://www.captechconsulting.com/blogs/android-material-themes-made-easy-with-appcompat
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -22,7 +22,7 @@ import io.walter.manager.models.Product;
 
 
 public class AddItemActivity extends AppCompatActivity {
-    EditText mEditTextName, mEditTextPrice, mEditTextDescription, mEditTextQty, mEditTextCode;
+    EditText mEditTextName, mEditTextPrice, mEditTextDescription, mEditTextQty, mEditTextCode,edtItemReOrderLevel;
     Spinner mSpinner;
     ArrayList<String> spinnerData;
     ArrayAdapter<String> spinnerAdapter;
@@ -39,6 +39,9 @@ public class AddItemActivity extends AppCompatActivity {
         mEditTextPrice = (EditText) findViewById(R.id.edtItemPrice);
         mEditTextDescription = (EditText) findViewById(R.id.edtItemDescription);
         mEditTextQty = (EditText) findViewById(R.id.edtItemQuantity);
+        edtItemReOrderLevel = (EditText) findViewById(R.id.edtItemReOrderLevel);
+
+
         mSpinner = (Spinner) findViewById(R.id.spinnerItemCategory);
         radioTaxable = (RadioButton) findViewById(R.id.radioTaxable);
         spinnerData=new ArrayList<>();
@@ -88,24 +91,28 @@ public class AddItemActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_item_add) {
             hideKeyBoard();
-            if (validateField(mEditTextCode) && validateField(mEditTextName) && validateField(mEditTextPrice) && validateField(mEditTextQty) && validateField(mEditTextDescription) && !isTaxable) {
+            if (validateField(mEditTextCode) && validateField(mEditTextName) && validateField(mEditTextPrice) && validateField(mEditTextQty) && validateField(mEditTextDescription) && validateField(edtItemReOrderLevel)) {
                 String name = mEditTextName.getText().toString().trim();
                 String price_str = mEditTextPrice.getText().toString().trim();
                 String qty_str = mEditTextQty.getText().toString().trim();
                 String desc = mEditTextDescription.getText().toString().trim();
                 String code_str = mEditTextCode.getText().toString().trim();
                 String category = mSpinner.getSelectedItem().toString().trim();
+                String re_level=edtItemReOrderLevel.getText().toString().trim();
+                double re_order=Double.parseDouble(re_level);
                 double price = Double.parseDouble(price_str);
                 int quantity = Integer.parseInt(qty_str);
+
                 code = Integer.parseInt(code_str);
                 Category categorySelected =getSelectedCategory(category);
-                Product product=new Product(code,name, price, quantity,desc,category, categorySelected.getColor(),isTaxable);
+                Product product=new Product(code,name, price, quantity,re_order,desc,category, categorySelected.getColor(),isTaxable);
                 saveProductToRealm(categorySelected,product);
                 clearFields(mEditTextName);
                 clearFields(mEditTextPrice);
                 clearFields(mEditTextQty);
                 clearFields(mEditTextDescription);
                 clearFields(mEditTextCode);
+
                 getLastId();
                 mEditTextCode.setText(""+code);
                 Snackbar.make(mEditTextCode,"Product Added Successfully",Snackbar.LENGTH_SHORT).show();

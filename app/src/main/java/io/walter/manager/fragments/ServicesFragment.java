@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -32,19 +33,31 @@ public class ServicesFragment extends Fragment {
     ServicesListAdapter adapter;
     ArrayList<Service> data;
     Realm myRealm;
+    TextView tvEmpty;
+    ListView listView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.items_fragment, container, false);
         myRealm = Realm.getInstance(getContext());
-        ListView listView = (ListView) view.findViewById(R.id.inventory_items_list);
+        listView = (ListView) view.findViewById(R.id.inventory_items_list);
+        tvEmpty = (TextView) view.findViewById(R.id.textEmpty);
         data = new ArrayList<>();
         adapter = new ServicesListAdapter(getActivity(), data);
         listView.setAdapter(adapter);
         setHasOptionsMenu(true);
         getAllProducts();
+        toggleEmptyListVisibility();
         return view;
+    }
+    public void toggleEmptyListVisibility() {
+        try {
+            listView.setVisibility(adapter.isEmpty()? View.INVISIBLE:View.VISIBLE);
+            tvEmpty.setVisibility(adapter.isEmpty()?View.VISIBLE:View.INVISIBLE);
+        }catch (NullPointerException e){
+
+        }
     }
 
     public void getAllProducts() {
@@ -62,6 +75,7 @@ public class ServicesFragment extends Fragment {
         super.onResume();
         data.clear();
         getAllProducts();
+        toggleEmptyListVisibility();
     }
 
     @Override

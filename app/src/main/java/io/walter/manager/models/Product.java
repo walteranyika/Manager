@@ -17,19 +17,29 @@ public class Product extends RealmObject{
     private String category;
     private int color;
     private  boolean isTaxable;
+    private double reOrderLevel;
 
     public Product() {
     }
 
-    public Product(int code, String title, double price, int quantity, String description, String category, int color, boolean isTaxable) {
+    public Product(int code, String title, double price, int quantity,double reOrderLevel ,String description, String category, int color, boolean isTaxable) {
         this.code = code;
         this.title = title;
         this.price = price;
         this.quantity = quantity;
+        this.reOrderLevel=reOrderLevel;
         this.description = description;
         this.category = category;
         this.color = color;
         this.isTaxable=isTaxable;
+    }
+
+    public double getReOrderLevel() {
+        return reOrderLevel;
+    }
+
+    public void setReOrderLevel(double reOrderLevel) {
+        this.reOrderLevel = reOrderLevel;
     }
 
     public boolean isTaxable() {

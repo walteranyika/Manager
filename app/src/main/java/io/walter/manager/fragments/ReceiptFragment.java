@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,12 +16,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-
 import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.walter.manager.R;
@@ -37,11 +35,14 @@ public class ReceiptFragment extends Fragment {
     private static final String FRAGMENT_CHARGE = "charge_fragment";
     ArrayList<TemporaryItem> data;
     ReceiptListAdapter adapter;
-    TextView tvTotal;
+    TextView tvTotal,tvEmpty;
     TextView tvCounter;
     FancyButton productsBtn, checkOutBtn;
     Realm myRealm;
     private static ReceiptFragment instance;
+    TextView textCartItemCount;
+    int mCartItemCount = 0;
+    ListView list;
 
     @Nullable
     @Override
@@ -53,11 +54,9 @@ public class ReceiptFragment extends Fragment {
         instance = this;
         tvTotal = (TextView) view.findViewById(R.id.tvReceiptTotals);
         tvCounter = (TextView) view.findViewById(R.id.tvReceiptCounter);
+        tvEmpty = (TextView) view.findViewById(R.id.textEmpty);
+        mCartItemCount=countItems();
 
-
-
-
-        updateSummary();
         productsBtn = (FancyButton) view.findViewById(R.id.products);
         checkOutBtn = (FancyButton) view.findViewById(R.id.btnCheckOut);
 
@@ -90,11 +89,14 @@ public class ReceiptFragment extends Fragment {
             e.printStackTrace();
         }
 
-        ListView list = (ListView) view.findViewById(R.id.receiptList);
+        list = (ListView) view.findViewById(R.id.receiptList);
 
         data = getProducts();
         adapter = new ReceiptListAdapter(getActivity(), data);
         list.setAdapter(adapter);
+        updateSummary();
+        toggleEmptyListVisibility();
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -103,6 +105,16 @@ public class ReceiptFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    public void toggleEmptyListVisibility() {
+        try {
+            list.setVisibility(adapter.isEmpty()? View.INVISIBLE:View.VISIBLE);
+            tvEmpty.setVisibility(adapter.isEmpty()?View.VISIBLE:View.INVISIBLE);
+        }catch (NullPointerException e){
+
+        }
+
     }
 
     public static ReceiptFragment getInstance() {
@@ -118,6 +130,7 @@ public class ReceiptFragment extends Fragment {
         Log.d("ITEMS", "AF:" + data.size());
         adapter.notifyDataSetChanged();
         updateSummary();
+        setupBadge();
     }
 
     public ArrayList<TemporaryItem> getProducts() {
@@ -139,6 +152,7 @@ public class ReceiptFragment extends Fragment {
             count += item.getQuantity();
         }
         myRealm.commitTransaction();
+        mCartItemCount=count;
         return count;
     }
 
@@ -156,9 +170,27 @@ public class ReceiptFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_receipt_fragment, menu);
+        final MenuItem menuItem = menu.findItem(R.id.action_cart);
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+        setupBadge();
         super.onCreateOptionsMenu(menu, inflater);
     }
 
+    public void setupBadge() {
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_item_delete) {
@@ -182,14 +214,19 @@ public class ReceiptFragment extends Fragment {
                         }
                     })
                     .show();
-
-
+            toggleEmptyListVisibility();
         }
         return true;
     }
 
     public void updateSummary() {
         tvTotal.setText("KES " + getProductsTotalCost());
-        tvCounter.setText(countItems() + " Items");
+        int total=countItems();
+        String text=total>1?"Items":"Item";
+        tvCounter.setText(countItems() + text);
+        setupBadge();
+        toggleEmptyListVisibility();
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -41,11 +42,13 @@ public class SalesFragment extends Fragment {
     SalesListAdapter adapter;
     Realm myRealm;
     public static final String TAG = "KEEPER";
-
+    TextView textCartItemCount;
+    int mCartItemCount = 0;
     Spinner spinnerCategories;
     ArrayList<String> spinnerItems;
     ArrayAdapter<String> spinnerAdapter;
-ArrayList<Product> productArrayList;
+    ArrayList<Product> productArrayList;
+
 
 
     public interface OnShoppingBasketSelectedListener{
@@ -106,6 +109,7 @@ ArrayList<Product> productArrayList;
                 tvSalesCounter.setText("" +countItems()+" Items");
                 tvSalesTotal.setText("KES "+getProductsTotalCost());
                 Log.d(TAG, "" +getProductsTotalCost());
+                setupBadge();
             }
         });
 
@@ -143,6 +147,19 @@ ArrayList<Product> productArrayList;
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.sales_fragment_menu,menu);
 
+        final MenuItem menuItem = menu.findItem(R.id.action_cart);
+        View actionView = MenuItemCompat.getActionView(menuItem);
+        textCartItemCount = (TextView) actionView.findViewById(R.id.cart_badge);
+
+        setupBadge();
+
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onOptionsItemSelected(menuItem);
+            }
+        });
+
         SearchView searchView =(SearchView) menu.findItem(R.id.menu_search).getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -163,8 +180,7 @@ ArrayList<Product> productArrayList;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId()==R.id.itemDone)
-        {
+        if(item.getItemId()==R.id.action_cart){
             FragmentManager manager= getActivity().getSupportFragmentManager();
             FragmentTransaction ft=manager.beginTransaction();
             if(manager.findFragmentByTag(SalesActivity.RECEIPT_FRAGMENT)==null){
@@ -180,6 +196,23 @@ ArrayList<Product> productArrayList;
         }
         return true;
     }
+
+    private void setupBadge() {
+
+        if (textCartItemCount != null) {
+            if (mCartItemCount == 0) {
+                if (textCartItemCount.getVisibility() != View.GONE) {
+                    textCartItemCount.setVisibility(View.GONE);
+                }
+            } else {
+                textCartItemCount.setText(String.valueOf(Math.min(mCartItemCount, 99)));
+                if (textCartItemCount.getVisibility() != View.VISIBLE) {
+                    textCartItemCount.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+    }
+
     public void savePurchasedIntoTemporary(Product item){
         myRealm.beginTransaction();
         RealmResults<TemporaryItem> results = myRealm.where(TemporaryItem.class).equalTo("code",item.getCode()).findAll();
@@ -229,6 +262,7 @@ ArrayList<Product> productArrayList;
             count+=item.getQuantity();
         }
         myRealm.commitTransaction();
+        mCartItemCount=count;
         return  count;
     }
     public double getProductsTotalCost(){

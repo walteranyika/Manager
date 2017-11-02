@@ -11,9 +11,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-
+import android.widget.TextView;
 import java.util.ArrayList;
-
 import io.realm.Realm;
 import io.realm.RealmResults;
 import io.walter.manager.AddCategoryActivity;
@@ -30,18 +29,30 @@ public class CategoryFragment extends Fragment {
     ArrayList<Category> data;
     CategoriesListAdapter adapter;
     Realm myRealm;
+    TextView tvEmpty;
+    ListView listView;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.categories_fragment, container, false);
-        ListView listView= (ListView) view.findViewById(R.id.listCategories);
+        listView= (ListView) view.findViewById(R.id.listCategories);
+        tvEmpty = (TextView) view.findViewById(R.id.textEmpty);
         myRealm = Realm.getInstance(getContext());
         data=new ArrayList<>();
         adapter=new CategoriesListAdapter(getActivity(),data);
         listView.setAdapter(adapter);
         setHasOptionsMenu(true);
         getAllCategories();
+        toggleEmptyListVisibility();
         return view;
+    }
+    public void toggleEmptyListVisibility() {
+        try {
+            listView.setVisibility(adapter.isEmpty()? View.INVISIBLE:View.VISIBLE);
+            tvEmpty.setVisibility(adapter.isEmpty()?View.VISIBLE:View.INVISIBLE);
+        }catch (NullPointerException e){
+
+        }
     }
 
     public void getAllCategories() {

@@ -2,6 +2,7 @@ package io.walter.manager.adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -74,7 +75,13 @@ public class InventoryListAdapter extends BaseAdapter {
         viewHolder.codeTextView.setText("Code: " + product.getCode());
         viewHolder.descTextView.setText(product.getDescription());
         viewHolder.categoryTextView.setText(product.getCategory());
-        viewHolder.qtyTextView.setText(product.getQuantity() + " Items");
+        if(product.getReOrderLevel()>product.getQuantity())
+        {
+            viewHolder.qtyTextView.setText(product.getQuantity() + " Items (Needs Restocking)");
+            viewHolder.qtyTextView.setTextColor(Color.parseColor("#ff0000"));
+        }else{
+            viewHolder.qtyTextView.setText(product.getQuantity() + " Items");
+        }
         @ColorInt int color=product.getColor();
         GradientDrawable gd=new GradientDrawable();
         gd.setColor(color);

@@ -19,7 +19,7 @@ import io.walter.manager.models.Category;
 import io.walter.manager.models.Product;
 
 public class EditProductActivity extends AppCompatActivity {
-    EditText mEditTextName, mEditTextPrice, mEditTextDescription, mEditTextQty, mEditTextCode;
+    EditText mEditTextName, mEditTextPrice, mEditTextDescription, mEditTextQty, mEditTextCode,edtItemReOrderLevel;;
     Spinner mSpinner;//TODO Fetch data from db
     ArrayList<String> spinnerData;
     ArrayAdapter<String> spinnerAdapter;
@@ -42,6 +42,7 @@ public class EditProductActivity extends AppCompatActivity {
         mEditTextQty = (EditText) findViewById(R.id.edtItemQuantity);
         mSpinner = (Spinner) findViewById(R.id.spinnerItemCategory);
         mEditTextCode = (EditText) findViewById(R.id.edtItemCode);
+        edtItemReOrderLevel = (EditText) findViewById(R.id.edtItemReOrderLevel);
 
         spinnerData = new ArrayList<>();
         spinnerAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinnerData);
@@ -56,6 +57,7 @@ public class EditProductActivity extends AppCompatActivity {
             mEditTextDescription.setText(mProduct.getDescription());
             mSpinner.setSelection(getSelectedPosition(mProduct.getCategory()));
             radioTaxable.setChecked(mProduct.isTaxable());
+            edtItemReOrderLevel.setText(String.valueOf(mProduct.getReOrderLevel()));
         }
 
         radioTaxable.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -116,11 +118,13 @@ public class EditProductActivity extends AppCompatActivity {
                 String desc = mEditTextDescription.getText().toString().trim();
                 String code_str = mEditTextCode.getText().toString().trim();
                 String category = mSpinner.getSelectedItem().toString();
+                String re_level=edtItemReOrderLevel.getText().toString().trim();
+                double re_order=Double.parseDouble(re_level);
                 double price = Double.parseDouble(price_str);
                 int quantity = Integer.parseInt(qty_str);
                 int code = Integer.parseInt(code_str);
                 Category categorySelected=getSelectedCategory(category);
-                Product p=new Product(code,name,price,quantity,desc,category,categorySelected.getColor(),isTaxable);
+                Product p=new Product(code,name,price,quantity,re_order,desc,category,categorySelected.getColor(),isTaxable);
                 updateProductToReal(p, code);
                 Snackbar.make(mEditTextCode,"Item Was Updated Successfully",Snackbar.LENGTH_SHORT).show();
             }

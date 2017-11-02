@@ -37,16 +37,19 @@ public class AddCategoryActivity extends AppCompatActivity implements ColorChoos
         mEditTextCategory= (EditText) findViewById(R.id.edtCategoryAdd);
         colorView=findViewById(R.id.colorView);
         colorTextView= (TextView) findViewById(R.id.colorTextView);
-        colorChosen =General.generateRandomColor();
-
-        GradientDrawable gd=new GradientDrawable();
-        gd.setColor(colorChosen);
-        gd.setCornerRadius(5);
-        colorView.setBackground(gd);
+        generateColor();
 
 
         myRealm = Realm.getInstance(this);
         getLastId();
+    }
+
+    private void generateColor() {
+        colorChosen = General.generateRandomColor();
+        GradientDrawable gd=new GradientDrawable();
+        gd.setColor(colorChosen);
+        gd.setCornerRadius(5);
+        colorView.setBackground(gd);
     }
 
     @Override
@@ -67,6 +70,7 @@ public class AddCategoryActivity extends AppCompatActivity implements ColorChoos
                 saveCategoryToRealm(cat);
                 Snackbar.make(mEditTextCategory, "Category Added", Snackbar.LENGTH_LONG).show();
                 mEditTextCategory.setText("");
+                generateColor();
             }else
             {
                 Snackbar.make(mEditTextCategory, "You must provide  a Category", Snackbar.LENGTH_SHORT).show();

@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:maxLines="1"
-        android:inputType="textPersonName"
+        android:inputType="textCapWords"
         android:hint="Category Name"/>
     <LinearLayout
         android:layout_marginTop="16dp"
