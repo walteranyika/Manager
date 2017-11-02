@@ -57,12 +57,9 @@ public class SalesActivity extends AppCompatActivity implements SalesFragment.On
             Log.d("FRAGMENT","NULL");
         }
     }
-
     public void openContacts(View view) {
        // startActivity(new Intent(this, AddressBookActivity.class));
     }
-
-
     public void openInventory(View view) {
         startActivity(new Intent(this, StocksActivity.class));
     }

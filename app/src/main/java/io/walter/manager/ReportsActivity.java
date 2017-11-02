@@ -11,13 +11,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import io.walter.manager.fragments.ItemsFragment;
+import io.walter.manager.fragments.ReceiptFragment;
 import io.walter.manager.reports.DailySalesFragment;
+import io.walter.manager.reports.ItemsReportFragment;
 
 
 public class ReportsActivity extends AppCompatActivity   implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String DAILY_SALES_FRAGMENT = "DAILY_SALES_FRAGMENT";
+    private static final String INVENTORY_REPORT = "INVENTORY_REPORT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +86,8 @@ public class ReportsActivity extends AppCompatActivity   implements NavigationVi
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentManager manager= this.getSupportFragmentManager();
+        FragmentTransaction transaction=manager.beginTransaction();
         if (id == R.id.nav_daily_reports) {
             // Handle the camera action
         } else if (id == R.id.nav_category_reports) {
@@ -89,7 +95,11 @@ public class ReportsActivity extends AppCompatActivity   implements NavigationVi
         } else if (id == R.id.nav_top_selling_reports) {
 
         } else if (id == R.id.nav_inventory_reports) {
-
+          //
+            getSupportActionBar().setTitle("Inventory Report");
+            ItemsReportFragment itemsFragment=new ItemsReportFragment();
+            transaction.replace(R.id.placeHolderReports,itemsFragment);
+            transaction.commit();
         } else if (id == R.id.nav_daily_charts) {
 
         } else if (id == R.id.nav_monthly_charts) {
