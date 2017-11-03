@@ -11,13 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import io.walter.manager.fragments.ItemsFragment;
-import io.walter.manager.fragments.ReceiptFragment;
 import io.walter.manager.reports.DailySalesFragment;
 import io.walter.manager.reports.ItemsReportFragment;
-
+import io.walter.manager.reports.MonthlyReportFragment;
 
 public class ReportsActivity extends AppCompatActivity   implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -95,7 +91,6 @@ public class ReportsActivity extends AppCompatActivity   implements NavigationVi
         } else if (id == R.id.nav_top_selling_reports) {
 
         } else if (id == R.id.nav_inventory_reports) {
-          //
             getSupportActionBar().setTitle("Inventory Report");
             ItemsReportFragment itemsFragment=new ItemsReportFragment();
             transaction.replace(R.id.placeHolderReports,itemsFragment);
@@ -104,6 +99,12 @@ public class ReportsActivity extends AppCompatActivity   implements NavigationVi
 
         } else if (id == R.id.nav_monthly_charts) {
 
+        }
+        else if (id == R.id.nav_sales_by_month_reports) {
+            getSupportActionBar().setTitle("Monthly Sales Report");
+            MonthlyReportFragment itemsFragment=new MonthlyReportFragment();
+            transaction.replace(R.id.placeHolderReports,itemsFragment);
+            transaction.commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

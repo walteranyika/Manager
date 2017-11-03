@@ -42,6 +42,10 @@ public class CalendarUtils {
             e.printStackTrace();
         }
         return  time;
-
+    }
+    public static String ConvertToMonthInWords(String month){
+        String[] months={"January","February","March","April","May","June","July","August","September","October","November","December"};
+        int i=Integer.valueOf(month);
+        return months[i];
     }
 }
