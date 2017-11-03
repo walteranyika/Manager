@@ -15,7 +15,7 @@ import io.walter.manager.utils.CalendarUtils;
 
 public class Database extends SQLiteOpenHelper {
     public Database(Context context) {
-        super(context, "reports_db.db", null, 1);
+        super(context, "reports_db.db", null, 3);
     }
 
     @Override
@@ -26,6 +26,7 @@ public class Database extends SQLiteOpenHelper {
                 "  code INT NOT NULL,\n" +
                 "  totalSales REAL NOT NULL,\n" +
                 "  numberSales INTEGER NOT NULL,\n" +
+                "  year TEXT NOT NULL,\n" +
                 "  UNIQUE (code) ON CONFLICT REPLACE\n" +
                 ")";
         db.execSQL(query);
@@ -41,12 +42,13 @@ public class Database extends SQLiteOpenHelper {
                 "  code INT NOT NULL,\n" +
                 "  totalSales REAL NOT NULL,\n" +
                 "  numberSales INTEGER NOT NULL,\n" +
+                "  year TEXT NOT NULL,\n" +
                 "  UNIQUE (code) ON CONFLICT REPLACE\n" +
                 ")";
         db.execSQL(query);
     }
 
-    public  void saveData(String month,int code,double totalSales,int numberSales){
+    public  void saveData(String month,int code,double totalSales,int numberSales,String year){
         SQLiteDatabase database = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         String month_words= CalendarUtils.ConvertToMonthInWords(month);
@@ -54,6 +56,7 @@ public class Database extends SQLiteOpenHelper {
         values.put("code", code);
         values.put("totalSales",totalSales);
         values.put("numberSales", numberSales);
+        values.put("year", year);
         database.insert("purchaseSummary", null, values);
         Log.d("DATABASE_INSERT", "saveData: "+code);
         database.close();
@@ -61,14 +64,14 @@ public class Database extends SQLiteOpenHelper {
 
     public ArrayList<MonthlySale> getData(){
         ArrayList<MonthlySale> data=new ArrayList<>();
-        String selectQuery = "SELECT  month, SUM(totalSales), SUM(numberSales) from purchaseSummary GROUP BY month";
+        String selectQuery = "SELECT  month, SUM(totalSales), SUM(numberSales),year from purchaseSummary GROUP BY month,year ORDER BY year desc";
         SQLiteDatabase database = this.getWritableDatabase();
         Cursor cursor = database.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                MonthlySale sale=new MonthlySale(cursor.getDouble(1), cursor.getInt(2), cursor.getString(0));
-                data.add(sale);
-                Log.d("DATABASE_INSERT", "saveData: "+cursor.getString(0));
+               MonthlySale sale=new MonthlySale(cursor.getDouble(1), cursor.getInt(2), cursor.getString(0),cursor.getString(3));
+               data.add(sale);
+               // Log.d("DATABASE_INSERT", "saveData: "+cursor.getString(0));
             } while (cursor.moveToNext());
         }
         cursor.close();

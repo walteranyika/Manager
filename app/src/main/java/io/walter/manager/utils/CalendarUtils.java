@@ -10,8 +10,10 @@ public class CalendarUtils {
 
     public static String dateFormat = "dd-MM-yyyy hh:mm";
     public static String tareheFormat = "dd-MM-yyyy";
+    public static String yearFormat = "yyyy";
     private static SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
     private static SimpleDateFormat simpleTareheFormat = new SimpleDateFormat(tareheFormat);
+    private static SimpleDateFormat simpleYearFormat = new SimpleDateFormat(yearFormat);
 
     public static String monthFormat = "M";
     private static SimpleDateFormat simpleMonthFormat = new SimpleDateFormat(monthFormat);
@@ -21,6 +23,14 @@ public class CalendarUtils {
         calendar.setTimeInMillis(milliSeconds);
         return simpleDateFormat.format(calendar.getTime());
     }
+
+    public static String ConvertToYearString(long milliSeconds){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        return simpleYearFormat.format(calendar.getTime());
+    }
+
+
     public static String ConvertToPureDateString(long milliSeconds){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(milliSeconds);

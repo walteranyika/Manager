@@ -64,7 +64,7 @@ public class MonthlySalesListAdapter extends BaseAdapter {
         }
         final MonthlySale purchaseSummary = temporaryArray.get(position);
         viewHolder.itemTotalAmount.setText(""+purchaseSummary.getTotalSales());
-        viewHolder.itemMonth.setText(purchaseSummary.getMonth());
+        viewHolder.itemMonth.setText(purchaseSummary.getMonth()+" "+purchaseSummary.getYear());
         viewHolder.itemTotalSales.setText(purchaseSummary.getNumberSales()+" Total sales");
         return convertView;
     }

@@ -7,14 +7,24 @@ public class MonthlySale {
     private double totalSales;
     private int numberSales;
     private String month;
+    private String year;
 
     public MonthlySale() {
     }
 
-    public MonthlySale(double totalSales, int numberSales, String month) {
+    public MonthlySale(double totalSales, int numberSales, String month, String year) {
         this.totalSales = totalSales;
         this.numberSales = numberSales;
         this.month = month;
+        this.year=year;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public double getTotalSales() {

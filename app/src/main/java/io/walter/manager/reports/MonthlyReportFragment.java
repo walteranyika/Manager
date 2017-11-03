@@ -3,13 +3,16 @@ package io.walter.manager.reports;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -19,6 +22,9 @@ import io.walter.manager.adapters.MonthlySalesListAdapter;
 import io.walter.manager.models.PurchaseSummary;
 import io.walter.manager.reportingsql.Database;
 import io.walter.manager.reportingsql.MonthlySale;
+import io.walter.manager.utils.CalendarUtils;
+
+
 
 public class MonthlyReportFragment extends Fragment {
 
@@ -36,8 +42,8 @@ public class MonthlyReportFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_monthly_sales_report, container, false);
         ((ReportsActivity) getActivity()).getSupportActionBar().setTitle("Monthly Sales Report");
         db=new Database(getContext());
-        tvFromDate = (TextView) view.findViewById(R.id.tvFromDate);
-        tvToDate = (TextView) view.findViewById(R.id.tvToDate);
+/*        tvFromDate = (TextView) view.findViewById(R.id.tvFromDate);
+        tvToDate = (TextView) view.findViewById(R.id.tvToDate);*/
       /*  tvFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,15 +67,18 @@ public class MonthlyReportFragment extends Fragment {
     }
 
     private ArrayList<MonthlySale> getPurchaseSummary() {
+        SimpleDateFormat format=new SimpleDateFormat("yyyy");
         myRealm.beginTransaction();
         RealmResults<PurchaseSummary> results = myRealm.where(PurchaseSummary.class).findAll();
         for (PurchaseSummary ps:results){
-           db.saveData(ps.getPurchase_month(),ps.getCode(),ps.getTotal_price(),1);
+           Date d=ps.getPurchase_date();
+           String y= format.format(d);
+           Log.d("TAG_YEAR", "getYear: "+y);
+           db.saveData(ps.getPurchase_month(),ps.getCode(),ps.getTotal_price(),1,y);
         }
         myRealm.commitTransaction();
         return  db.getData();
     }
-
    /* private ArrayList<PurchaseSummary> getSummaryInRange(Date start, Date end) {
         ArrayList<PurchaseSummary> items=new ArrayList<>();
         //.between("purchase_date",start,end)
