@@ -20,7 +20,9 @@ import io.realm.RealmResults;
 import io.walter.manager.R;
 import io.walter.manager.ReportsActivity;
 import io.walter.manager.adapters.DailySalesListAdapter;
+import io.walter.manager.models.DailySaleSummary;
 import io.walter.manager.models.PurchaseSummary;
+import io.walter.manager.reportingsql.SalesDatabase;
 import io.walter.manager.utils.CalendarUtils;
 
 public class DailySalesFragment extends Fragment {
@@ -28,8 +30,9 @@ public class DailySalesFragment extends Fragment {
     TextView tvFromDate, tvToDate;
     ListView listDailySales;
     DailySalesListAdapter adapter;
-    ArrayList<PurchaseSummary> data;
+    ArrayList<DailySaleSummary> data;
     Realm myRealm;
+    SalesDatabase db;
 
     public DailySalesFragment() {
     }
@@ -38,6 +41,7 @@ public class DailySalesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_daily_sales, container, false);
         ((ReportsActivity) getActivity()).getSupportActionBar().setTitle("Daily Sales Report");
         tvFromDate = (TextView) view.findViewById(R.id.tvFromDate);
+        db=new SalesDatabase(getContext());
         tvToDate = (TextView) view.findViewById(R.id.tvToDate);
         tvFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +57,7 @@ public class DailySalesFragment extends Fragment {
         });
         myRealm=Realm.getInstance(getContext());
         listDailySales= (ListView) view.findViewById(R.id.listDailySales);
-        data = getPurchaseSummary();
+        data = db.getData();
         adapter=new DailySalesListAdapter(getContext(), data,"Daily Sales");
         listDailySales.setAdapter(adapter);
         return view;
@@ -65,6 +69,7 @@ public class DailySalesFragment extends Fragment {
         RealmResults<PurchaseSummary> results = myRealm.where(PurchaseSummary.class).findAll();
         for (int i = 0; i < results.size(); i++) {
             items.add(results.get(i));
+
             Log.d("SIZE_SUMMARY", "getPurchaseSummary: COUNT "+results.get(i).getPurchasedItems().size());
         }
         myRealm.commitTransaction();
@@ -115,7 +120,7 @@ public class DailySalesFragment extends Fragment {
                 Date dateFrom = new Date(from);
                 Date dateTo=new Date(to);
                 data.clear();
-                data.addAll(getSummaryInRange(dateFrom,dateTo));
+                //data.addAll(getSummaryInRange(dateFrom,dateTo));
                 adapter.notifyDataSetChanged();
 
             }

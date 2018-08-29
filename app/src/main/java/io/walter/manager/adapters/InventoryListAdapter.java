@@ -156,6 +156,7 @@ public class InventoryListAdapter extends BaseAdapter {
                                             try {
                                                 Realm realm=Realm.getInstance(mContext);
                                                 realm.beginTransaction();
+                                                realm.commitTransaction();
                                                 double price = Double.parseDouble(input.toString().trim());
                                                 product.setPrice(price);
                                                 notifyDataSetChanged();

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.walter.manager.R;
+import io.walter.manager.models.DailySaleSummary;
 import io.walter.manager.models.Order;
 import io.walter.manager.models.PurchaseSummary;
 
@@ -22,11 +23,11 @@ public class DailySalesListAdapter extends BaseAdapter {
 
 
     Context mContext;
-    ArrayList<PurchaseSummary> temporaryArray;
-    ArrayList<PurchaseSummary> permanentArray;
+    ArrayList<DailySaleSummary> temporaryArray;
+    ArrayList<DailySaleSummary> permanentArray;
     String type;
 
-    public DailySalesListAdapter(Context context, ArrayList<PurchaseSummary> data, String type) {
+    public DailySalesListAdapter(Context context, ArrayList<DailySaleSummary> data, String type) {
         this.mContext = context;
         this.temporaryArray = data;
         this.permanentArray=new ArrayList<>();
@@ -64,37 +65,14 @@ public class DailySalesListAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        final PurchaseSummary purchaseSummary = temporaryArray.get(position);
-        viewHolder.itemNumber.setText(purchaseSummary.getRaw_date());
-        viewHolder.itemDate.setText("Sale #"+purchaseSummary.getCode());
-        viewHolder.itemTotal.setText("KES " + purchaseSummary.getTotal_price());
-        viewHolder.itemQty.setText(purchaseSummary.getPurchasedItems().size()+" Items");
+        final DailySaleSummary purchaseSummary = temporaryArray.get(position);
+        //viewHolder.itemNumber.setText(purchaseSummary.getRaw_date());
+        viewHolder.itemDate.setText("Sale #"+purchaseSummary.getSale_date());
+        viewHolder.itemTotal.setText("KES " + purchaseSummary.getTotal());
+        viewHolder.itemQty.setText(purchaseSummary.getQuantity()+" Items");
 
 
         return convertView;
-    }
-
-    public void filter(String text){
-        /*text=text.toLowerCase();
-        temporaryArray.clear();
-
-        if(text.trim().length()==0)
-        {
-          temporaryArray.addAll(permanentArray);
-        }
-        else
-        {
-            for (Product p:permanentArray)
-            {
-                //|| (p.getCode()+"").contains(text) || (p.getPrice()+"").contains(text)
-               if(p.getTitle().toLowerCase().contains(text) )
-               {
-                  temporaryArray.add(p);
-               }
-            }
-            Log.d("SEARCH","COUNT "+temporaryArray.size());
-        }
-        notifyDataSetChanged();*/
     }
 
     static class ViewHolder {

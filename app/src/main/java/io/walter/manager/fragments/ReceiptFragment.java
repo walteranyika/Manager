@@ -31,7 +31,7 @@ import mehdi.sakout.fancybuttons.FancyButton;
  * Created by walter on 7/9/17.
  */
 
-public class ReceiptFragment extends Fragment {
+public class ReceiptFragment extends Fragment implements ReceiptDialogFragment.ItemQuantityChangedListener {
     private static final String FRAGMENT_CHARGE = "charge_fragment";
     ArrayList<TemporaryItem> data;
     ReceiptListAdapter adapter;
@@ -161,7 +161,7 @@ public class ReceiptFragment extends Fragment {
         myRealm.beginTransaction();
         RealmResults<TemporaryItem> items = myRealm.where(TemporaryItem.class).findAll();
         for (TemporaryItem item : items) {
-            total += item.getTotal();
+            total += item.getQuantity()*item.getPrice();
         }
         myRealm.commitTransaction();
         return total;
@@ -229,4 +229,9 @@ public class ReceiptFragment extends Fragment {
     }
 
 
+    @Override
+    public void onQuantityChanged(int code, int quantity) {
+        updateSummary();
+
+    }
 }

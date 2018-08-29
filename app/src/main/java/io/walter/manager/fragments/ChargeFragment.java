@@ -1,5 +1,6 @@
 package io.walter.manager.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -18,10 +20,12 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 import io.walter.manager.R;
 import io.walter.manager.SalesActivity;
+import io.walter.manager.models.DailySale;
 import io.walter.manager.models.Product;
 import io.walter.manager.models.PurchaseSummary;
 import io.walter.manager.models.PurchasedItem;
 import io.walter.manager.models.TemporaryItem;
+import io.walter.manager.reportingsql.SalesDatabase;
 import io.walter.manager.utils.CalendarUtils;
 
 /**
@@ -33,14 +37,18 @@ public class ChargeFragment extends Fragment {
     Realm myRealm;
     int purchase_summary_id=1;
     int purchase_item_id=1;
+    SalesDatabase db;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.charge_fragment, container, false);
         ((SalesActivity) getActivity()).getSupportActionBar().setTitle("Checkout");
-        Button btnCharge = (Button) view.findViewById(R.id.buttonCharge);
+        final Button btnCharge = (Button) view.findViewById(R.id.buttonCharge);
         TextView textViewAmount = (TextView) view.findViewById(R.id.tvChargeAmount);
+        final ImageView imgCheck= (ImageView) view.findViewById(R.id.imgCheck);
         final TextView textViewStatus = (TextView) view.findViewById(R.id.tvChargeStatus);
+        db=new SalesDatabase(getContext());
         myRealm=Realm.getInstance(getContext());
         getLastSummaryId();
         textViewAmount.setText("KES " +getProductsTotalCost());
@@ -59,6 +67,7 @@ public class ChargeFragment extends Fragment {
                     String raw_date = CalendarUtils.ConvertToDateString(purchaseDate);
                     String month = CalendarUtils.ConvertToMonthString(purchaseDate);
                     ArrayList<TemporaryItem> data = getProducts();
+                    String today=CalendarUtils.ConvertToPureDateString(purchaseDate);
                     double cost = getProductsTotalCost();
                     myRealm.beginTransaction();
                     PurchaseSummary summary = new PurchaseSummary(purchase_summary_id, cost, tarehe, month, raw_date, 1);
@@ -72,6 +81,7 @@ public class ChargeFragment extends Fragment {
                         purchaseSummary.getPurchasedItems().add(managedItem);
                         updateProductQuantity(p.getCode(), p.getQuantity());
                         myRealm.commitTransaction();
+                        saveToSQL(p,db,today);
                     }
 
                     myRealm.executeTransaction(new Realm.Transaction() {
@@ -80,6 +90,7 @@ public class ChargeFragment extends Fragment {
                             realm.clear(TemporaryItem.class);
                         }
                     });
+                    textViewStatus.setTextColor(Color.parseColor("#00a65a"));
                     textViewStatus.setText("Transaction Successfull");
                     textViewStatus.setScaleX(0);
                     textViewStatus.setScaleY(0);
@@ -88,7 +99,19 @@ public class ChargeFragment extends Fragment {
                             .scaleY(1)
                             .scaleX(1)
                             .start();
+
+                    imgCheck.setVisibility(View.VISIBLE);
+                    imgCheck.setScaleX(0);
+                    imgCheck.setScaleX(0);
+                    imgCheck.animate().setDuration(800)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .scaleY(1)
+                            .scaleX(1)
+                            .start();
+
                     charged = true;
+
+                    btnCharge.setVisibility(View.INVISIBLE);
                 } else {
                     Toast.makeText(getActivity(), "Item Already Charged", Toast.LENGTH_SHORT).show();
                 }
@@ -105,7 +128,7 @@ public class ChargeFragment extends Fragment {
         myRealm.beginTransaction();
         RealmResults<TemporaryItem> items =myRealm.where(TemporaryItem.class).findAll();
         for (TemporaryItem item:items){
-            total+=item.getTotal();
+            total+=item.getQuantity()*item.getPrice();
         }
         myRealm.commitTransaction();
         return  total;
@@ -147,5 +170,12 @@ public class ChargeFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         myRealm.close();
+    }
+
+    private void saveToSQL(TemporaryItem item, SalesDatabase db,String date){
+        //(String sale_date, String item, double quantity, double pri
+        DailySale sale=new DailySale(date, item.getTitle(), item.getQuantity(), item.getPrice());
+        db.saveData(sale.getSale_date(),sale.getItem(),sale.getQuantity(),sale.getPrice());
+
     }
 }
