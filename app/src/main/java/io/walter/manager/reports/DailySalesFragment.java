@@ -40,9 +40,9 @@ public class DailySalesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_daily_sales, container, false);
         ((ReportsActivity) getActivity()).getSupportActionBar().setTitle("Daily Sales Report");
-        tvFromDate = (TextView) view.findViewById(R.id.tvFromDate);
+        tvFromDate =  view.findViewById(R.id.tvFromDate);
         db=new SalesDatabase(getContext());
-        tvToDate = (TextView) view.findViewById(R.id.tvToDate);
+        tvToDate = view.findViewById(R.id.tvToDate);
         tvFromDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class DailySalesFragment extends Fragment {
             }
         });
         myRealm=Realm.getInstance(getContext());
-        listDailySales= (ListView) view.findViewById(R.id.listDailySales);
+        listDailySales= view.findViewById(R.id.listDailySales);
         data = db.getData();
         adapter=new DailySalesListAdapter(getContext(), data,"Daily Sales");
         listDailySales.setAdapter(adapter);

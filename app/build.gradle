@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "io.walter.manager"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -23,14 +23,14 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'org.honorato.multistatetogglebutton:multistatetogglebutton:0.2.2'
     compile 'com.jakewharton:butterknife:8.6.0'
-    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.medyo:fancybuttons:1.5@aar'
     compile 'com.github.dexafree:materiallist:3.1.2'
-    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support:design:26.1.0'
     compile 'com.afollestad.material-dialogs:core:0.9.4.5'
     compile 'com.afollestad.material-dialogs:commons:0.9.4.5'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:26.1.0'
     compile 'com.wdullaer:materialdatetimepicker:3.2.2'
     compile 'io.realm:realm-android:0.86.0'
     annotationProcessor 'io.realm:realm-android:0.86.0'

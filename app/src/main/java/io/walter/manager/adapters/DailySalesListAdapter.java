@@ -67,11 +67,9 @@ public class DailySalesListAdapter extends BaseAdapter {
         }
         final DailySaleSummary purchaseSummary = temporaryArray.get(position);
         //viewHolder.itemNumber.setText(purchaseSummary.getRaw_date());
-        viewHolder.itemDate.setText("Sale #"+purchaseSummary.getSale_date());
+        viewHolder.itemDate.setText(purchaseSummary.getSale_date());
         viewHolder.itemTotal.setText("KES " + purchaseSummary.getTotal());
-        viewHolder.itemQty.setText(purchaseSummary.getQuantity()+" Items");
-
-
+        viewHolder.itemQty.setText(purchaseSummary.getQuantity()+" Items Sold");
         return convertView;
     }
 
